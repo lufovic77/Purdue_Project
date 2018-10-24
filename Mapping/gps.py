@@ -20,7 +20,12 @@ class ImageMetaData(object):
     def get_exif_data(self):
         """Returns a dictionary from the exif data of an PIL Image item. Also converts the GPS Tags"""
         exif_data = {}
-        info = self.image._getexif()
+        try: 
+            info = self.image._getexif()
+        except:
+            print("error occured")
+            exit()
+
         if info:
             for tag, value in info.items():
                 decoded = TAGS.get(tag, tag)
@@ -80,10 +85,10 @@ class ImageMetaData(object):
                     lng = 0 - lng
         return lat, lng
 
-'''
+
 if __name__ == "__main__" :
 
-    FilepathAll = os.path.abspath("/Users/choeyujin/Project/Purdue_Proejct/UAV-Aerial-Mapping-and-Survey/DroneMosaic/images/*.JPG")
+    FilepathAll = os.path.abspath("PATH TO IMAGES")
     images = sorted(glob.glob(FilepathAll))
 
     for name in images :
@@ -93,4 +98,3 @@ if __name__ == "__main__" :
 
         #exif_data = meta_data.get_exif_data()
         #print(exif_data)
-'''
