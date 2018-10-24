@@ -80,6 +80,7 @@ class ImageMetaData(object):
                     lng = 0 - lng
         return lat, lng
 
+'''
 if __name__ == "__main__" :
 
     FilepathAll = os.path.abspath("/Users/choeyujin/Project/Purdue_Proejct/UAV-Aerial-Mapping-and-Survey/DroneMosaic/images/*.JPG")
@@ -92,3 +93,4 @@ if __name__ == "__main__" :
 
         #exif_data = meta_data.get_exif_data()
         #print(exif_data)
+'''
