@@ -1,3 +1,7 @@
+'''
+From: https://www.pyimagesearch.com/2014/08/04/opencv-python-color-detection/
+Modified: Joey Kim (lufovic77@gmail.com)
+'''
 import numpy as np
 import argparse
 import cv2
@@ -13,7 +17,10 @@ image = cv2.imread(args["image"])
 
 # the list of boundaries -> for RGB colors(order no matters) 
 boundaries = [
-	([0, 0, 255], [1, 2, 255])	#BGR
+	([17, 15, 100], [50, 56, 255])
+	#Not RGB order. OpenCV accepts it as BGR order 
+	#Only detects the B value between 17 and 50, G value between 15 and 56 
+	#R value between 100 and 255. 
 ]
 # it represents the upper limit and lower limit. 
 # For the first row of array, it means that 
@@ -25,7 +32,8 @@ boundaries = [
 for (lower, upper) in boundaries:
 	lower = np.array(lower, dtype = "uint8") #dtype for datatype
 	upper = np.array(upper, dtype = "uint8")
-
+	print(lower)
+	print(upper)
 	mask = cv2.inRange(image, lower, upper)
 	#image: where the color detection will be performed 
 	# lower & upper: the upper and lower limit value of the color 
