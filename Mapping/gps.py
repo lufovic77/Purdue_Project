@@ -20,7 +20,7 @@ class ImageMetaData(object):
     def get_exif_data(self):
         """Returns a dictionary from the exif data of an PIL Image item. Also converts the GPS Tags"""
         exif_data = {}
-        try: 
+        try:    #no PNG format is allowed
             info = self.image._getexif()
         except:
             print("error occured")
@@ -88,7 +88,7 @@ class ImageMetaData(object):
 
 if __name__ == "__main__" :
 
-    FilepathAll = os.path.abspath("PATH TO IMAGES")
+    FilepathAll = os.path.abspath("/home/kyungmin/Desktop/purdueproject/Mapping/src/*jpg")
     images = sorted(glob.glob(FilepathAll))
 
     for name in images :
