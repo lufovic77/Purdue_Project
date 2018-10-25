@@ -193,5 +193,5 @@ class Mosaic :
 
 if __name__ == "__main__" :
 
-    mosaic = Mosaic("/Users/choeyujin/Downloads/Original Images/*.JPG","/Users/choeyujin/Downloads/Original Images/DJI_0001.JPG")
+    mosaic = Mosaic("/path/to/file","/path/to.file")
     ErrorList, ImgNumbers, GoodMatches = mosaic.giveMosaic()
