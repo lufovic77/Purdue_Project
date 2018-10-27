@@ -1,3 +1,6 @@
+'''
+Modified: MakeToast(Yoojin Choi, Ella) (maketoastyj@gmail.com)
+'''
 from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 import os
