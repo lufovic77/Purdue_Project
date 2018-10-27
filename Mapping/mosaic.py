@@ -1,3 +1,6 @@
+'''
+Modified: MakeToast(Yoojin Choi, Ella) (maketoastyj@gmail.com)
+'''
 import cv2
 import numpy as np
 
