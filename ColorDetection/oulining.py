@@ -25,10 +25,11 @@ justName = name[0] #like "solar"
 gwash = cv2.imread(args["image"])
 gwashBW = cv2.cvtColor(gwash, cv2.COLOR_BGR2GRAY)
 
+filepath = "result/"+justName+"_grayscale.png" #jpg is not supported!!!!
 plt.imshow(gwashBW, 'gray')	
-#plt.savefig(filename)	# how to save image using ndarray
 plt.xticks([]), plt.yticks([])
-plt.show() #shows the gray scale of pic
+plt.savefig(filepath)	# how to save image using ndarray
+#plt.show() #shows the gray scale of pic
 
 #cv2.imshow('gwash', gwashBW) #Also supports conversion to the gray scale
 #cv2.waitKey(0)
