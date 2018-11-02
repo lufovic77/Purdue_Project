@@ -33,7 +33,8 @@ plt.savefig(filepath)	# how to save image using ndarray
 #cv2.imshow('gwash', gwashBW) #Also supports conversion to the gray scale
 #cv2.waitKey(0)
 
-ret, thresh = cv2.threshold(grayimg, 120, 255, cv2.THRESH_BINARY)
+ret, thresh = cv2.threshold(grayimg, 30, 255, cv2.THRESH_TRUNC)
+#small value 0(BLACK) <---------> large value 255(WHITE)
 #Parameters: (grayscale img src, threshold, applied value when exceeds the threshold, thresholding type)
 #WHITE when bigger than the threshold
 #BLACK when smaller than the threshold
@@ -42,8 +43,9 @@ retimg, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_TREE, cv2.CHAIN_
 #several parameters: 1)src image, 2)contour retrieval mode, 3)contour approximation method 
 #output: 1)modified image, 2)contours(list of all contours), 3)hierarchy
 
-cnt = contours[4]
-cv2.drawContours(retimg, [cnt], 0, (0, 255, 0), 3)
+#cnt = contours[4]
+cv2.drawContours(retimg, contours, -1, (0, 255, 0), 3)
+#draw all contours
 cv2.imshow("result", retimg)
 cv2.waitKey(0)
 
