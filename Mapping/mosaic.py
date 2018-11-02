@@ -8,7 +8,7 @@ import glob
 import time
 import os
 
-
+import Image
 
 class Mosaic :
 
