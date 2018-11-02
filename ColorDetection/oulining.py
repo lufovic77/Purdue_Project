@@ -33,7 +33,7 @@ plt.savefig(filepath)	# how to save image using ndarray
 #cv2.imshow('gwash', gwashBW) #Also supports conversion to the gray scale
 #cv2.waitKey(0)
 
-ret, thresh = cv2.threshold(grayimg, 30, 255, cv2.THRESH_TRUNC)
+ret, thresh = cv2.threshold(grayimg, 30, 255, cv2.THRESH_BINARY_INV)
 #small value 0(BLACK) <---------> large value 255(WHITE)
 #Parameters: (grayscale img src, threshold, applied value when exceeds the threshold, thresholding type)
 #WHITE when bigger than the threshold
