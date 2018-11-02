@@ -1,2 +1,2 @@
 #!/bin/bash
-cp /mnt/c/Users/lufov/Documents/.. src/
+cp /mnt/c/Users/lufov/Documents/*origin* src/
