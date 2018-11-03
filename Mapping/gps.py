@@ -6,6 +6,8 @@ from PIL.ExifTags import TAGS, GPSTAGS
 import os
 import glob
 
+import sort_image
+
 class ImageMetaData(object):
     '''
     Extract the exif data from any image. Data includes GPS coordinates, 
@@ -91,13 +93,19 @@ class ImageMetaData(object):
 
 if __name__ == "__main__" :
 
-    FilepathAll = os.path.abspath("/home/kyungmin/Desktop/purdueproject/Mapping/src/*jpg")
+    FilepathAll = os.path.abspath("/Users/choeyujin/Project/code/Mapping/src/Original Images/*JPG")
     images = sorted(glob.glob(FilepathAll))
-
+    
+    sorted_image = []
     for name in images :
         meta_data =  ImageMetaData(name)
         latlng = meta_data.get_lat_lng()
-        print(name ,latlng) # latlang[0] = lat, latlang[1] = lng
-
+        #print(name ,latlng) # latlng[0] = lat, latlng[1] = lng
+        sorted_image.append(Image(name, latlng[0] ,latlng[1]))
+        
+        
+    for index, n in enumerate(sorted_image) :
+        sorted_image[index].filename = str(index)
+        print(index, n)
         #exif_data = meta_data.get_exif_data()
         #print(exif_data)
