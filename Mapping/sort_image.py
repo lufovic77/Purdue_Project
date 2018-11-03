@@ -8,7 +8,7 @@ class Sorted_Image:
     
     def __repr__(self) :
         return repr((self.filename, self.latitude, self.longitude))
-    
+'''
 if __name__ == "__main__" :
 
     image = [
@@ -23,3 +23,4 @@ if __name__ == "__main__" :
     for index, n in enumerate(sorted_image) :
         sorted_image[index].filename = str(index)
         print(index, n)
+'''
