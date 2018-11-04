@@ -1,7 +1,12 @@
 import numpy as np
 import cv2
 import argparse
-import matplotlib.pyplot as pyplot
+import matplotlib.pyplot as plt
+'''
+from scipy import misc
+from scipy.ndimage import gaussian_filter
+'''
+
 def canny():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("-i", "--image", help = "it means path to images")
@@ -17,12 +22,24 @@ def canny():
 	justName = name[0] #like "solar"
 
 	#load images from disk 
+	global srcimg 
 	srcimg = cv2.imread(args["image"])
+	global grayimg  
 	grayimg = cv2.cvtColor(srcimg, cv2.COLOR_BGR2GRAY)
 
-	canny_img = cv2.Canny(grayimg, 0, 45)
+	canny_img = cv2.Canny(grayimg, 0, 90)
 	cv2.imshow('contour1', canny_img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
-
+'''
+def gaussian():
+	ax1 = grayimg.add_subplot(121)
+	ax2 = grayimg.add_subplot(122)
+	ascent = misc.ascent()
+	result = gaussian_filter(ascent, sigma = 5)
+	ax1.imshow(ascent)
+	ax2.imshow(result)
+	plt.show()
+'''
 canny()
+
