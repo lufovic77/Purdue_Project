@@ -8,18 +8,28 @@ import glob
 import time
 import os
 
-import Image
+from sort_image import *
+from gps import *
 
 class Mosaic :
 
-    def __init__(self, ImagePath, Image):
+    def __init__(self, ImagePath):
 
-        self.FirstImage = os.path.abspath(Image)
+        
         self.TotalImage = os.path.abspath(ImagePath)
         
+        self.images = glob.glob(self.TotalImage)   # for reading images
+    
+        sorted_image = []
+        for name in self.images :
+            meta_data =  ImageMetaData(name)
+            latlng = meta_data.get_lat_lng()
+            sorted_image.append(Sorted_Image(name, latlng[0] ,latlng[1]))
+            
+        self.images = sorted(sorted_image, key=attrgetter('latitude','longitude'))   
+        self.FirstImage = os.path.abspath(self.images[0].filename)
         self.first_img = cv2.imread(self.FirstImage)
-        self.images = sorted(glob.glob(self.TotalImage))    # for reading images
-        
+
         self.n = 10000   # no of features to extract
         self.MIN_MATCH_COUNT = 8
         
@@ -87,10 +97,10 @@ class Mosaic :
         self.first_img = cv2.resize(self.first_img, (int(widthM / 4), int(heightM / 4)), interpolation=cv2.INTER_CUBIC)
         RecMosaic = self.first_img
         
-        for name in self.images[1:]: # except First image
+        for image in self.images[1:]: # except First image
             
-            print(name)
-            image = cv2.imread(name) 
+            print(image)
+            image = cv2.imread(image.filename) 
             
             
             sift = cv2.xfeatures2d.SIFT_create(self.n)
@@ -139,7 +149,7 @@ class Mosaic :
                 #all_src_pts = np.float32([ kp1[m.queryIdx].pt for m in allPoints ]).reshape(-1,1,2)
                 #all_dst_pts = np.float32([ kp2[m.trainIdx].pt for m in allPoints ]).reshape(-1,1,2)
                 
-                M, tmp = cv2.findHomography(dst_pts, src_pts, cv2.RANSAC, 20.0)
+                M, tmp = cv2.findHomography(dst_pts, src_pts, cv2.RANSAC, 10.0)
 
                 ###################################
             
@@ -196,5 +206,5 @@ class Mosaic :
 
 if __name__ == "__main__" :
 
-    mosaic = Mosaic("/path/to/file","/path/to.file")
+    mosaic = Mosaic("/Users/choeyujin/Project/code/Mapping/src/Original Images/*JPG")
     ErrorList, ImgNumbers, GoodMatches = mosaic.giveMosaic()
