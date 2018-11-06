@@ -1,0 +1,3 @@
+/Users/choeyujin/Downloads/darknet-master/data/quadrangle/train/test.JPEG
+/Users/choeyujin/Downloads/darknet-master/data/quadrangle/train/test2.JPEG
+/Users/choeyujin/Downloads/darknet-master/data/quadrangle/train/test3.JPEG
