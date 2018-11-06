@@ -1,0 +1,11 @@
+!wget https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64 (Depends on the Ubuntu version)
+!dpkg -i cuda-repo-ubuntu1804-10-0-local-10.0.130-410.48_1.0-1_amd64
+!apt-key add /var/cuda-repo-10-0<your version>/7fa2af80.pub
+!apt-get update
+!apt-get install cuda (Takes So Much Time)
+!nvcc --version (Check the CUDA version)
+!git clone https://github.com/pjreddie/darknet.git
+%cd darknet (Should use % when using changing directory)
+!ls
+!make
+!./darknet (Output should be usage: './darknet <function>')
