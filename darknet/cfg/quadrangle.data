@@ -1,5 +1,5 @@
 classes = 1
-train = ./data/quadrangle/train.txt 
-valid = ./data/quadrangle/test.txt 
-names = quadrangle.names
+train = data/quadrangle/train.txt 
+valid = data/quadrangle/test.txt 
+names = cfg/quadrangle.names
 backup = backup/
