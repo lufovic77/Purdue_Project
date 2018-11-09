@@ -22,15 +22,17 @@ def canny():
 	justName = name[0] #like "solar"
 
 	#load images from disk 
+	filepath = "result/"+justName+"_contour.png" #jpg is not supported!!!!
 	global srcimg 
 	srcimg = cv2.imread(args["image"])
 	global grayimg  
 	grayimg = cv2.cvtColor(srcimg, cv2.COLOR_BGR2GRAY)
 
-	canny_img = cv2.Canny(grayimg, 0, 90)
+	canny_img = cv2.Canny(grayimg, 0, 113)
 	cv2.imshow('contour1', canny_img)
 	cv2.waitKey(0)
 	cv2.destroyAllWindows()
+	plt.savefig(filepath)	# how to save image using ndarray
 '''
 def gaussian():
 	ax1 = grayimg.add_subplot(121)
