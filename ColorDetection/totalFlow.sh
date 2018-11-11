@@ -6,6 +6,6 @@ read sigma
 ./BM3D/BM3Ddenoising $src_image $sigma ImNoisy.png ImBasic.png ImDenoised.png ImDiff.png ImBias.png \
 ImDiiffBias.png 1 dct 1 dct 1 rgb
 mv *png noiseRet
-
+python canny.py --image noiseRet/ImDenoised.png &
 
  
