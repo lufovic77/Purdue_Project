@@ -7,20 +7,11 @@ def contour_iteration(img, contours) :
     val = 0
     for i in range(len(contours)) :
         cnt = contours[i]
-        '''
-        cv2.drawContours(img, [cnt], 0, (255, 255, 0), 1)
-        cv2.imshow('contour', img)
-        cv2.waitKey(0)
-        '''
         area = cv2.contourArea(cnt)
-        perimeter = cv2.arcLength(cnt, True)
-        print('contour 면적 : ', area)
-        print('contour 길이 : ', perimeter)
         if max < area :
             max = area
             val = i
-   
-    print(max, val)
+
     return val
 
 def findContour_child(hierarchy, contours, parent) :
@@ -31,24 +22,25 @@ def findContour_child(hierarchy, contours, parent) :
         for h in hc:
             num += 1
             if h[3] == parent :
-                print('num', num, num-1)
                 cnt = contours[num-1]
                 area = cv2.contourArea(cnt)
-                perimeter = cv2.arcLength(cnt, True)
-                print('contour 면적 : ', area)
-                print('contour 길이 : ', perimeter)
                 if max < area :
                     max = area
                     val = num-1
     return val
 
-def contour_draw(imgpath) :
+def contour_draw(imgpath, noise=False, params='0') :
 
     img = cv2.imread(imgpath)
-    grayimg = cv2.bilateralFilter(img, 5, 100, 100)
-    grayimg = cv2.cvtColor(grayimg, cv2.COLOR_BGR2GRAY)
+    if noise == True :
+        img = cv2.bilateralFilter(img, 10, 20, 20)
+        #img= cv2.medianBlur(img,9)
+    grayimg = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
-    _, thr = cv2.threshold(grayimg, 115, 200, cv2.THRESH_BINARY)
+    if noise == False :
+        _, thr = cv2.threshold(grayimg, 135, 200, cv2.THRESH_BINARY)
+    elif noise == True :
+        _, thr = cv2.threshold(grayimg, 115, 200, cv2.THRESH_BINARY)
 
     _, contours, hierarchy = cv2.findContours(thr, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
     
@@ -57,13 +49,12 @@ def contour_draw(imgpath) :
 
     cv2.drawContours(grayimg, contours, child, (0, 0, 255), 1)
     cv2.imshow('contour', grayimg)
+    filename = 'result'+params+'.png'
+    cv2.imwrite(filename, grayimg)
     cv2.waitKey(0)
-    #print('final value', contours[child])
     return contours[child]
 
 
-cnt1 = contour_draw('/Users/choeyujin/Project/code/Compare/src/b.png')
-cnt2 = contour_draw('/Users/choeyujin/Project/code/Compare/src/s.png')
+cnt1 = contour_draw('/Users/choeyujin/Project/code/Compare/src/b.png', True, '1')
+cnt2 = contour_draw('/Users/choeyujin/Project/code/Compare/src/s.png', False, '2')
 print(cv2.matchShapes(cnt1, cnt2, 1, 0.0))
-print(cv2.matchShapes(cnt1, cnt2, 2, 0.0))
-print(cv2.matchShapes(cnt1, cnt2, 3, 0.0))
