@@ -15,6 +15,21 @@ def contour_iteration(img, contours) :
 
     return val, max
 
+def findContour_child(hierarchy, contours, parent) :
+    max = 0
+    val = 0
+    num = 0
+    for hc in hierarchy:
+        for h in hc:
+            num += 1
+            if h[3] == parent :
+                cnt = contours[num-1]
+                area = cv2.contourArea(cnt)
+                if max < area :
+                    max = area
+                    val = num-1
+    return val
+    
 def contour_draw() :
 
     origin_img = cv2.imread('path/to/image')
