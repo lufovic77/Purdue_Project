@@ -99,9 +99,12 @@ class Mosaic :
         
         for image in self.images[1:]: # except First image
             
-            print(image)
+            #print(image)
             image = cv2.imread(image.filename) 
-            
+            #image = cv2.bilateralFilter(image, 9, 200, 200)
+            image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+            # grayscale has no channel so add 3 channel like rgb image.
+            image = np.stack((image,)*3, axis=-1)
             
             sift = cv2.xfeatures2d.SIFT_create(self.n)
             #sift = cv2.ORB_create(no)
@@ -112,6 +115,7 @@ class Mosaic :
     #         print(heightM, widthM, height, width)        
             
             image = cv2.resize(image, (int(width / 4), int(height / 4)),interpolation=cv2.INTER_CUBIC)
+            #image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             ###########################
 
 
@@ -206,5 +210,5 @@ class Mosaic :
 
 if __name__ == "__main__" :
 
-    mosaic = Mosaic("/Users/choeyujin/Project/code/Mapping/src/Original Images/*JPG")
+    mosaic = Mosaic("/Users/choeyujin/Downloads/Original Images/*JPG")
     ErrorList, ImgNumbers, GoodMatches = mosaic.giveMosaic()
