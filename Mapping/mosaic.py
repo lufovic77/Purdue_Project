@@ -29,9 +29,11 @@ class Mosaic :
         self.images = sorted(sorted_image, key=attrgetter('latitude','longitude'))   
         self.FirstImage = os.path.abspath(self.images[0].filename)
         self.first_img = cv2.imread(self.FirstImage)
+        self.first_img = cv2.cvtColor(self.first_img, cv2.COLOR_BGR2GRAY)
+        self.first_img = np.stack((self.first_img,)*3, axis=-1)
 
         self.n = 10000   # no of features to extract
-        self.MIN_MATCH_COUNT = 8
+        self.MIN_MATCH_COUNT = 6
         
     def warpImages(self, img1, img2, H):
 
@@ -101,7 +103,7 @@ class Mosaic :
             
             #print(image)
             image = cv2.imread(image.filename) 
-            #image = cv2.bilateralFilter(image, 9, 200, 200)
+            image = cv2.bilateralFilter(image, 7, 200, 200)
             image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
             # grayscale has no channel so add 3 channel like rgb image.
             image = np.stack((image,)*3, axis=-1)
@@ -210,5 +212,5 @@ class Mosaic :
 
 if __name__ == "__main__" :
 
-    mosaic = Mosaic("/Users/choeyujin/Downloads/Original Images/*JPG")
+    mosaic = Mosaic("/Users/choeyujin/Downloads/Color/*jpg")
     ErrorList, ImgNumbers, GoodMatches = mosaic.giveMosaic()
